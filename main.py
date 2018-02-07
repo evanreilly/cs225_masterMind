@@ -6,9 +6,48 @@ from colorama import Fore, Back, Style
 from termcolor import colored
 import random
 
-# use Colorama to make Termcolor work on Windows too
 init()
 
+def printBall(color):
+	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
+
+class Board:
+	def __init__(self,x_dim,y_dim):
+		self.x = x_dim
+		self.y = y_dim
+		self.description = "Mastermind Game Board"
+		self.author = "Evan Reilly"
+		self.Board = []
+		for j in range(x_dim):
+			column = []
+			for i in range(y_dim):
+				column.append("O")
+			self.Board.append(column)
+
+	def printBoard(self):
+		 for j in range(len(self.Board)):
+		 	for i in range(len(self.Board[j])):
+		 		print(Back.WHITE + " ",end="")
+		 		if self.Board[j][i] == "O":
+		 			printBall("grey") 
+		 		else:
+		 			printBall(self.Board[j][i])
+		 		print(Back.WHITE + " ",end="")
+		 	print(""+Style.RESET_ALL) #Fixes formatting
+
+	def setRow(self, row, color1, color2, color3, color4):
+		self.Board[row][:] = [] #delete row as it is
+		self.Board[row].append(color1)
+		self.Board[row].append(color2)
+		self.Board[row].append(color3)
+		self.Board[row].append(color4)
+
+
+
+
+gameBoard = Board(10,4)
+gameBoard.setRow(1,"red","cyan","green","yellow")
+gameBoard.printBoard()
 # # then use Termcolor for all colored text output
 # print(colored('Hello, World!', 'green', 'on_red'))
 # print(colored('O', 'cyan'))
@@ -19,12 +58,28 @@ init()
 # print(Back.GREEN + 'and with a green background')
 # print(Style.BRIGHT + 'and in dim text')
 # print(Style.RESET_ALL)
-# print('back to normal now')
+# print('back to normal snow')
 
 
-def printBall(color):
-	print(Style.BRIGHT + colored("O", color),end="")
-	
+
+#prints colored ball
+#def printBall(color):
+#	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
+
+
+
+
+# for k in range (0,10):
+# 	for i in range(0,4):
+# 		#printBall(guessArray[i][k])
+# 		print(Back.WHITE + "   ",end="")
+# 	print("")
+# 	print("")
+print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
+
+
+gametype = input("")
+
 printBall("red")
 print("")
 printBall("cyan")
@@ -34,8 +89,6 @@ print(Style.DIM+colored('Some bright red text',"red"))
 #printBall()
 print(Fore.RED+Style.BRIGHT+'Some bright red text')
 
-person = input('Enter your name: ')
-print('Hello', person)
 
 
 # response
