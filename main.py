@@ -22,9 +22,14 @@ init()
 # print('back to normal now')
 
 
+
 def printBall(color):
 	print(Style.BRIGHT + colored("O", color),end="")
-	
+
+print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
+
+
+
 printBall("red")
 print("")
 printBall("cyan")
