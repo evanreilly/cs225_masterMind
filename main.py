@@ -4,11 +4,17 @@
 from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
+import colr
+from colr import color
+# When not using the Colr.hex method, the closest matching extended code
+# is used. For true color, just use:
+#     fore=hex2rgb('ff0000')
+# or
+#     Colr.hex('ff0000', rgb_mode=True)
 
-
-# use Colorama to make Termcolor work on Windows too
 init()
-
+print(color('Hello world.', fore='red', style='bright'))
+print(color('Hello there.', fore=(255, 0, 0), back=(0, 0, 0)))
 # # then use Termcolor for all colored text output
 # print(colored('Hello, World!', 'green', 'on_red'))
 # print(colored('O', 'cyan'))
@@ -21,14 +27,21 @@ init()
 # print(Style.RESET_ALL)
 # print('back to normal now')
 
+colors = "red, white, blue, yellow, green, cyan, magenta, "
 
-
+#prints colored ball
 def printBall(color):
-	print(Style.BRIGHT + colored("O", color),end="")
+	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
 
+for k in range (0,10):
+	for i in range(0,4):
+		#printBall(guessArray[i][k])
+		print(Back.WHITE + "   ",end="")
+	print("")
+	print("")
 print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
 
-
+gametype = input("")
 
 printBall("red")
 print("")
@@ -39,8 +52,6 @@ print(Style.DIM+colored('Some bright red text',"red"))
 #printBall()
 print(Fore.RED+Style.BRIGHT+'Some bright red text')
 
-person = input('Enter your name: ')
-print('Hello', person)
 
 
 # response
