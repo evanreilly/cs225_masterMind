@@ -4,7 +4,7 @@
 from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
-
+import random
 
 # use Colorama to make Termcolor work on Windows too
 init()
@@ -56,6 +56,7 @@ print('Hello', person)
 # 	computer guesses
 #		user comes up with a code for the computer to guess
 #		computer gets 10 tries to guess the code
+
 # 		feedback: response (see above)
 
 
@@ -64,3 +65,22 @@ print('Hello', person)
 # generate a random code of 4 colors/spots
 # menu options
 # read and interpret the code
+=======
+# 		feedback
+
+
+# Computer generates the code for the user to guess generate the code
+def generateCode():
+	# r g y b p w
+
+	colorArray = ['r','g','y','b','p','w'] # all usable colors, red green yellow blue purple white
+	positionArray = [] # position array
+
+	for i in range(0,4):
+		temp = random.randint(0,5)
+		positionArray.append(colorArray[temp])
+
+	print(positionArray)
+
+generateCode()
+>>>>>>> alecbranch
