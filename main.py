@@ -4,17 +4,39 @@
 from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
-import colr
-from colr import color
-# When not using the Colr.hex method, the closest matching extended code
-# is used. For true color, just use:
-#     fore=hex2rgb('ff0000')
-# or
-#     Colr.hex('ff0000', rgb_mode=True)
+
 
 init()
-print(color('Hello world.', fore='red', style='bright'))
-print(color('Hello there.', fore=(255, 0, 0), back=(0, 0, 0)))
+
+def printBall(color):
+	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
+
+class Board:
+	def __init__(self,x_dim,y_dim):
+		self.x = x_dim
+		self.y = y_dim
+		self.description = "Mastermind Game Board"
+		self.author = "Evan Reilly"
+		self.Board = []
+		for j in range(x_dim):
+			column = []
+			for i in range(y_dim):
+				column.append("O")
+			self.Board.append(column)
+
+	def printBoard(self):
+		 for j in range(len(self.Board)):
+		 	for i in range(len(self.Board[j])):
+		 		print(Back.WHITE + " ",end="")
+		 		printBall("grey") 
+		 		print(Back.WHITE + " ",end="")
+		 	print(""+Style.RESET_ALL)
+
+		#print(self.Board[1])
+
+
+gameBoard = Board(10,4)
+gameBoard.printBoard()
 # # then use Termcolor for all colored text output
 # print(colored('Hello, World!', 'green', 'on_red'))
 # print(colored('O', 'cyan'))
@@ -27,19 +49,23 @@ print(color('Hello there.', fore=(255, 0, 0), back=(0, 0, 0)))
 # print(Style.RESET_ALL)
 # print('back to normal now')
 
-colors = "red, white, blue, yellow, green, cyan, magenta, "
+
 
 #prints colored ball
-def printBall(color):
-	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
+#def printBall(color):
+#	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
 
-for k in range (0,10):
-	for i in range(0,4):
-		#printBall(guessArray[i][k])
-		print(Back.WHITE + "   ",end="")
-	print("")
-	print("")
+
+
+
+# for k in range (0,10):
+# 	for i in range(0,4):
+# 		#printBall(guessArray[i][k])
+# 		print(Back.WHITE + "   ",end="")
+# 	print("")
+# 	print("")
 print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
+
 
 gametype = input("")
 
