@@ -65,7 +65,7 @@ print('Hello', person)
 # generate a random code of 4 colors/spots
 # menu options
 # read and interpret the code
-=======
+
 # 		feedback
 
 
@@ -83,4 +83,4 @@ def generateCode():
 	print(positionArray)
 
 generateCode()
->>>>>>> alecbranch
+
