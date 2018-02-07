@@ -4,11 +4,8 @@
 from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
-from pyautogui import press, typewrite, hotkey
 
-press('a')
-typewrite('quick brown fox')
-hotkey('ctrl', 'w')
+
 # use Colorama to make Termcolor work on Windows too
 init()
 
