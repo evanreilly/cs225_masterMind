@@ -56,4 +56,11 @@ print('Hello', person)
 # 	computer guesses
 #		user comes up with a code for the computer to guess
 #		computer gets 10 tries to guess the code
-# 		feedback
+# 		feedback: response (see above)
+
+
+# methods we need
+
+# generate a random code of 4 colors/spots
+# menu options
+# read and interpret the code
