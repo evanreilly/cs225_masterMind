@@ -28,14 +28,25 @@ class Board:
 		 for j in range(len(self.Board)):
 		 	for i in range(len(self.Board[j])):
 		 		print(Back.WHITE + " ",end="")
-		 		printBall("grey") 
+		 		if self.Board[j][i] == "O":
+		 			printBall("grey") 
+		 		else:
+		 			printBall(self.Board[j][i])
 		 		print(Back.WHITE + " ",end="")
-		 	print(""+Style.RESET_ALL)
+		 	print(""+Style.RESET_ALL) #Fixes formatting
 
-		#print(self.Board[1])
+	def setRow(self, row, color1, color2, color3, color4):
+		self.Board[row][:] = [] #delete row as it is
+		self.Board[row].append(color1)
+		self.Board[row].append(color2)
+		self.Board[row].append(color3)
+		self.Board[row].append(color4)
+
+
 
 
 gameBoard = Board(10,4)
+gameBoard.setRow(1,"red","cyan","green","yellow")
 gameBoard.printBoard()
 # # then use Termcolor for all colored text output
 # print(colored('Hello, World!', 'green', 'on_red'))
@@ -47,7 +58,7 @@ gameBoard.printBoard()
 # print(Back.GREEN + 'and with a green background')
 # print(Style.BRIGHT + 'and in dim text')
 # print(Style.RESET_ALL)
-# print('back to normal now')
+# print('back to normal snow')
 
 
 
