@@ -1,6 +1,5 @@
 
 
-
 from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
@@ -38,16 +37,22 @@ class Game:
 		 		print(Back.WHITE + " ",end="")
 		 	print(""+Style.RESET_ALL) #Fixes formatting
 
-	def setRow(self, row, color1, color2, color3, color4):
+	# def setRow(self, row, color1, color2, color3, color4):
+	# 	self.Board[row][:] = [] #delete row as it is
+	# 	self.Board[row].append(color1)
+	# 	self.Board[row].append(color2)
+	# 	self.Board[row].append(color3)
+	# 	self.Board[row].append(color4)
+
+	def setRow(self, row, replacementRow):
 		self.Board[row][:] = [] #delete row as it is
-		self.Board[row].append(color1)
-		self.Board[row].append(color2)
-		self.Board[row].append(color3)
-		self.Board[row].append(color4)
+		self.Board[row] = replacementRow
 
 	def setCode(self, color1,color2,color3,color4):  
-		self.Code = [color1, color2, color3, color4]
+	 	self.Code = [color1, color2, color3, color4]
 	
+	# def setCode(self, row):
+	# 	self.Code = row
 
 
 	def checkCode(self, row):
@@ -77,13 +82,28 @@ class Game:
 	# r g y b p w
 	# red, green, yellow, blue (cyan), pink (magenta), white
 def validateGuess(guess):
-	if re.match('(rgybpw)*(?=.{4,4}$).*',guess):
+	if re.match('(?=(r*g*y*b*p*w*){4,4}$).*',guess):
 		return True
 	return False
 
 
 def parseGuess(guess):
-	print("parse")
+	parsed = []
+	for i in range(len(guess)):
+		if guess[i] == "r":
+			parsed.append("red")
+		if guess[i] == "g":
+			parsed.append("green")
+		if guess[i] == "y":
+			parsed.append("yellow")
+		if guess[i] == "b":
+			parsed.append("cyan")
+		if guess[i] == "p":
+			parsed.append("magenta")
+		if guess[i] == "w":
+			parsed.append("white")
+	return parsed 
+
 
 
 
@@ -99,10 +119,13 @@ def main():
 	while (guesses < maxGuesses):
 		guess = input("Enter a guess:  ")
 		if validateGuess(guess):
-			print("valid guess")
+			parsedGuess = parseGuess(guess)
+			gameBoard.setRow(guesses,parsedGuess)
+			guesses+=1
+			gameBoard.printBoard()
+			# print("valid guess")
 		else:
 			print("invalid input")
-
 
 	print("")
 
@@ -116,24 +139,12 @@ main()
 # print(Style.BRIGHT + 'and in dim text')
 # print(Style.RESET_ALL)
 # print('back to normal snow')
+# print(Style.DIM+colored('Some bright red text',"red"))
+# #printBall()
+# print(Fore.RED+Style.BRIGHT+'Some bright red text')
 
 
-
-
-
-gametype = input("")
-
-printBall("red")
-print("")
-printBall("cyan")
-printBall("green")
-printBall("white")
-print(Style.DIM+colored('Some bright red text',"red"))
-#printBall()
-print(Fore.RED+Style.BRIGHT+'Some bright red text')
-
-
-
+######Psudo Code############
 # response
 # red = 1 right color in right place
 # white = 1 right color in wrong place
