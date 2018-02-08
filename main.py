@@ -26,17 +26,6 @@ class Game:
 				column.append("O")
 			self.Board.append(column)
 
-	def printBoard(self):
-		 for j in range(len(self.Board)):
-		 	for i in range(len(self.Board[j])):
-		 		print(Back.WHITE + " ",end="")
-		 		if self.Board[j][i] == "O":
-		 			printBall("grey") 
-		 		else:
-		 			printBall(self.Board[j][i])
-		 		print(Back.WHITE + " ",end="")
-		 	print(""+Style.RESET_ALL) #Fixes formatting
-
 	# def setRow(self, row, color1, color2, color3, color4):
 	# 	self.Board[row][:] = [] #delete row as it is
 	# 	self.Board[row].append(color1)
@@ -70,19 +59,35 @@ class Game:
 				feedback.append("blue")
 		return feedback
 
+	# def setRandomCode(self):
+	# 	possibilities = ["red", "green", "yellow", "cyan", "magenta", "white"]
+	# 	for i in range(self.y_dim):
 
-
-
+	def printBoard(self):
+		 for j in range(len(self.Board)):
+		 	for i in range(len(self.Board[j])):
+		 		print(Back.WHITE + " ",end="")
+		 		if self.Board[j][i] == "O":
+		 			printBall("grey") 
+		 		else:
+		 			printBall(self.Board[j][i])
+		 		print(Back.WHITE + " ",end="")
+		 	
+		 	#if self.Board[j] != ["O", "O", "O", "O"]:
+		 	feedBack = self.codeFeedback(self.Board[j])
+		 	for k in range(len(feedBack)):
+		 	 	printBall(feedBack[k])
+		 	print(""+Style.RESET_ALL) #Fixes formatting
 
 
 
 #
-	
+	#(?=(r*g*y*b*p*w*){4,4}$).*
 
 	# r g y b p w
 	# red, green, yellow, blue (cyan), pink (magenta), white
 def validateGuess(guess):
-	if re.match('(?=(r*g*y*b*p*w*){4,4}$).*',guess):
+	if re.match('(?=[rgybpw]{4,4}$).*',guess):
 		return True
 	return False
 
@@ -104,15 +109,14 @@ def parseGuess(guess):
 			parsed.append("white")
 	return parsed 
 
-
+ 
 
 
 def main(): 
 	gameBoard = Game(10,4)
 	#gameBoard.setRow(1,"red","cyan","green","yellow")
-
-	gameBoard.printBoard()
 	gameBoard.setCode("yellow","green","yellow","green")
+	gameBoard.printBoard()
 	print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
 	guesses = 0
 	maxGuesses = 10
@@ -180,7 +184,7 @@ main()
 def generateCode():
 	# r g y b p w
 	# red, green, yellow, blue (cyan), pink (magenta), white
-	colorArray = ['r','g','y','b','p','w'] # all usable colors, red green yellow blue purple white
+	colorArray = ['red','green','yellow','cyan','magenta','white'] # all usable colors, red green yellow blue purple white
 	
 	positionArray = [] # position array
 
