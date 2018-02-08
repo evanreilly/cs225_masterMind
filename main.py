@@ -5,19 +5,22 @@ from colorama import init
 from colorama import Fore, Back, Style
 from termcolor import colored
 import random
+import re
+
 
 init()
 
 def printBall(color):
 	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
 
-class Board:
+class Game: 
 	def __init__(self,x_dim,y_dim):
 		self.x = x_dim
 		self.y = y_dim
 		self.description = "Mastermind Game Board"
 		self.author = "Evan Reilly"
 		self.Board = []
+		self.Code = []
 		for j in range(x_dim):
 			column = []
 			for i in range(y_dim):
@@ -42,16 +45,70 @@ class Board:
 		self.Board[row].append(color3)
 		self.Board[row].append(color4)
 
+	def setCode(self, color1,color2,color3,color4):  
+		self.Code = [color1, color2, color3, color4]
+	
+
+
+	def checkCode(self, row):
+		for i in range(len(self.Code)):
+			if row[i] != Code[i]:
+				return False
+		return True
+
+	def codeFeedback(self, row):
+		feedback = []
+		for i in range(len(row)):
+			if self.Code[i] == row[i]:
+				feedback.append("red")
+			elif row[i] in self.Code:
+				feedback.append("blue")
+		return feedback
 
 
 
-gameBoard = Board(10,4)
-gameBoard.setRow(1,"red","cyan","green","yellow")
-gameBoard.printBoard()
-# # then use Termcolor for all colored text output
-# print(colored('Hello, World!', 'green', 'on_red'))
-# print(colored('O', 'cyan'))
-# print(colored('O', 'red')+colored('O','cyan'))
+
+
+
+
+#
+	
+
+	# r g y b p w
+	# red, green, yellow, blue (cyan), pink (magenta), white
+def validateGuess(guess):
+	if re.match('(rgybpw)*(?=.{4,4}$).*',guess):
+		return True
+	return False
+
+
+def parseGuess(guess):
+	print("parse")
+
+
+
+def main(): 
+	gameBoard = Game(10,4)
+	#gameBoard.setRow(1,"red","cyan","green","yellow")
+
+	gameBoard.printBoard()
+	gameBoard.setCode("yellow","green","yellow","green")
+	print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
+	guesses = 0
+	maxGuesses = 10
+	while (guesses < maxGuesses):
+		guess = input("Enter a guess:  ")
+		if validateGuess(guess):
+			print("valid guess")
+		else:
+			print("invalid input")
+
+
+	print("")
+
+main()
+
+
 
 
 # print(Fore.RED + 'some red text')
@@ -62,20 +119,6 @@ gameBoard.printBoard()
 
 
 
-#prints colored ball
-#def printBall(color):
-#	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
-
-
-
-
-# for k in range (0,10):
-# 	for i in range(0,4):
-# 		#printBall(guessArray[i][k])
-# 		print(Back.WHITE + "   ",end="")
-# 	print("")
-# 	print("")
-print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
 
 
 gametype = input("")
@@ -125,8 +168,9 @@ print(Fore.RED+Style.BRIGHT+'Some bright red text')
 # Computer generates the code for the user to guess generate the code
 def generateCode():
 	# r g y b p w
-
+	# red, green, yellow, blue (cyan), pink (magenta), white
 	colorArray = ['r','g','y','b','p','w'] # all usable colors, red green yellow blue purple white
+	
 	positionArray = [] # position array
 
 	for i in range(0,4):
