@@ -114,8 +114,9 @@ def main():
 			guesses+=1
 			win = gameBoard.checkCode(parsedGuess)
 			if win:
+				gameBoard.printBoard()
 				print("You Win!, "+ str(guesses) +" guesses")
-			gameBoard.printBoard()
+			
 			# print("valid guess")
 		else:
 			print("invalid input")
