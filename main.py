@@ -6,8 +6,7 @@ from termcolor import colored
 import random
 import re
 
-#important for colorama to work with windows, look at 
-#colorama documentation for more information 
+
 init()
 
 def printBall(color):
@@ -27,16 +26,27 @@ class Game:
 				column.append("O")
 			self.Board.append(column)
 
+	# def setRow(self, row, color1, color2, color3, color4):
+	# 	self.Board[row][:] = [] #delete row as it is
+	# 	self.Board[row].append(color1)
+	# 	self.Board[row].append(color2)
+	# 	self.Board[row].append(color3)
+	# 	self.Board[row].append(color4)
+
 	def setRow(self, row, replacementRow):
 		self.Board[row][:] = [] #delete row as it is
 		self.Board[row] = replacementRow
 
 	def setCode(self, color1,color2,color3,color4):  
 	 	self.Code = [color1, color2, color3, color4]
+	
+	# def setCode(self, row):
+	# 	self.Code = row
+
 
 	def checkCode(self, row):
 		for i in range(len(self.Code)):
-			if row[i] != self.Code[i]:
+			if row[i] != Code[i]:
 				return False
 		return True
 
@@ -46,16 +56,12 @@ class Game:
 			if self.Code[i] == row[i]:
 				feedback.append("red")
 			elif row[i] in self.Code:
-				feedback.append("white")
+				feedback.append("blue")
 		return feedback
 
-	def setRandomCode(self):
-		colorArray = ['red','green','yellow','cyan','magenta','white']
-		randomCode = []
-		for i in range(0,4):
-			temp = random.randint(0,5)
-			randomCode.append(colorArray[temp])
-		self.Code = randomCode
+	# def setRandomCode(self):
+	# 	possibilities = ["red", "green", "yellow", "cyan", "magenta", "white"]
+	# 	for i in range(self.y_dim):
 
 	def printBoard(self):
 		 for j in range(len(self.Board)):
@@ -71,8 +77,12 @@ class Game:
 		 	feedBack = self.codeFeedback(self.Board[j])
 		 	for k in range(len(feedBack)):
 		 	 	printBall(feedBack[k])
-		 	
 		 	print(""+Style.RESET_ALL) #Fixes formatting
+
+
+
+#
+	#(?=(r*g*y*b*p*w*){4,4}$).*
 
 	# r g y b p w
 	# red, green, yellow, blue (cyan), pink (magenta), white
@@ -80,6 +90,7 @@ def validateGuess(guess):
 	if re.match('(?=[rgybpw]{4,4}$).*',guess):
 		return True
 	return False
+
 
 def parseGuess(guess):
 	parsed = []
@@ -98,10 +109,13 @@ def parseGuess(guess):
 			parsed.append("white")
 	return parsed 
 
+ 
+
+
 def main(): 
 	gameBoard = Game(10,4)
-	#gameBoard.setCode("yellow","green","yellow","green")
-	gameBoard.setRandomCode()
+	#gameBoard.setRow(1,"red","cyan","green","yellow")
+	gameBoard.setCode("yellow","green","yellow","green")
 	gameBoard.printBoard()
 	print("Welcome to Mastermind!  Codemaker vs CodeBreaker!")
 	guesses = 0
@@ -112,18 +126,34 @@ def main():
 			parsedGuess = parseGuess(guess)
 			gameBoard.setRow(guesses,parsedGuess)
 			guesses+=1
+
 			win = gameBoard.checkCode(parsedGuess)
 			if win:
 				gameBoard.printBoard()
 				print("You Win!, "+ str(guesses) +" guesses")
 			
+			gameBoard.printBoard()
+
 			# print("valid guess")
 		else:
 			print("invalid input")
 
-	print("You Lose! " +str(maxGuesses)+" exceeded!")
-	print("The code was "+str(gameBoard.Code))
+	print("")
+
 main()
+
+
+
+
+# print(Fore.RED + 'some red text')
+# print(Back.GREEN + 'and with a green background')
+# print(Style.BRIGHT + 'and in dim text')
+# print(Style.RESET_ALL)
+# print('back to normal snow')
+# print(Style.DIM+colored('Some bright red text',"red"))
+# #printBall()
+# print(Fore.RED+Style.BRIGHT+'Some bright red text')
+
 
 ######Psudo Code############
 # response
@@ -147,6 +177,7 @@ main()
 
 # 		feedback: response (see above)
 
+
 # methods we need
 
 # generate a random code of 4 colors/spots
@@ -155,6 +186,20 @@ main()
 
 # 		feedback
 
-# Computer generates the code for the user to guess generate the code
 
+# Computer generates the code for the user to guess generate the code
+def generateCode():
+	# r g y b p w
+	# red, green, yellow, blue (cyan), pink (magenta), white
+	colorArray = ['red','green','yellow','cyan','magenta','white'] # all usable colors, red green yellow blue purple white
+	
+	positionArray = [] # position array
+
+	for i in range(0,4):
+		temp = random.randint(0,5)
+		positionArray.append(colorArray[temp])
+
+	print(positionArray)
+
+generateCode()
 
