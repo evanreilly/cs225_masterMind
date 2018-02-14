@@ -12,7 +12,7 @@ init()
 def printBall(color):
 	print(Back.WHITE + Style.BRIGHT + colored("O", color),end="")
 
-# Game class
+# Game class, by Evan
 class Game: 
 	#Constructor
 	def __init__(self,x_dim,y_dim):
@@ -91,6 +91,7 @@ def validateGuess(guess):
 		return True
 	return False
 
+#to separate guesses to identify what color was used
 def parseGuess(guess):
 	parsed = []
 
@@ -136,10 +137,11 @@ def pc_guess():
 
 
 #user creates code, computer guesses
+#By Alec and Sarah
 def codeMaker():
+	#menu to let user know what's going on
 	print("""
 		Create your code for the computer to break!
-
 		Color options:
 		red
 		green
@@ -151,7 +153,6 @@ def codeMaker():
 		""")
 
 	code = input("Enter your code: ")
-	print("code size: ",len(code))
 	gameBoard = Game(10,4)
 	gameBoard.setCode(code)
 	#gameBoard.printBoard()
@@ -161,46 +162,27 @@ def codeMaker():
 
 	while (guesses < maxGuesses ):
 		pcGuess = pc_guess()
-		
 		parsedGuess = parseGuess(pcGuess)
-		
 		gameBoard.setRow(guesses,parsedGuess)
-		
-		win = gameBoard.checkCode(parsedGuess)
-		#gameBoard.printBoard()
 		guesses+=1
+		win = gameBoard.checkCode(parsedGuess)
 
-		#print(win)
-		if(win==True):
+		if win:
+			#gameBoard.printBoard()
+			print("Computer Wins!, "+ str(guesses) +" guess(es)")
 		#gameBoard.printBoard()
-				print("Computer Wins!, "+ str(guesses) +" guess(es)")
-		
-	if(win==False):
-		print("Computer loses after " + str(guesses) + " guess(es)")
-	#rigged(code,gameBoard)
-	
-def rigged(code,gameBoard):
-	parsedGuess = parseGuess(code)
-	print("parsedGuess: ",parsedGuess)
-	gameBoard.setRow(9,parsedGuess)
-	gameBoard.printBoard()
-	print("""
-		The system was and always has been rigged.
-		Computers will always win.
-		Your code was
-		""" + str(gameBoard.Code))
-
+	print("Computer loses after " + str(guesses) + " guesses")
+	print("The code was "+str(gameBoard.Code)+" ...but you knew that.")
 
 
 #user plays against computer generated code
+#By Evan
 def codeBreaker():
 	gameBoard = Game(10,4)
-	#gameBoard.setCode("yellow","green","yellow","green")
 	gameBoard.setRandomCode()
 	gameBoard.printBoard()
 	print("""
 		Crack the computer's code...
-
 		Color options:
 		red
 		green
@@ -212,6 +194,7 @@ def codeBreaker():
 		""")
 	guesses = 0
 	maxGuesses = 10
+	#let's user guess ten times, stops early if user gets the code bc user wins
 	while (guesses < maxGuesses):
 		guess = input("Enter a guess:  ")
 		if validateGuess(guess):
@@ -230,7 +213,8 @@ def codeBreaker():
 	print("You Lose! " +str(maxGuesses)+" exceeded!")
 	print("The code was "+str(gameBoard.Code))
 	
-
+#basic menu options for user
+#By Sarah
 def main(): 
 	end = False
 	while (end == False):
@@ -244,16 +228,18 @@ def main():
 			""")
 		answer = input("Enter a number: ")
 
+		#calls method to play in mode where user creates code
 		if answer == "1":
 			codeMaker()
 
+		#calls method to play in mode where user creates code
 		elif answer == "2":
 			codeBreaker()
 
+		#prints out instructions to game and how to enter user input
 		elif answer == "3":
 			print("""
 		Instructions:
-
 		Codemaker mode:
 		Enter the first letters of the color options.
 		You can choose four colors for the code.
@@ -268,6 +254,10 @@ def main():
 			Red means that your peg has the right color and position.
 			White means that your peg has the right color but wrong position.
 
+		To enter a guess or your code:
+			for a pattern like "red red red red"
+			enter: " rrrr "
+
 		Good luck!
 				""")
 
@@ -281,6 +271,7 @@ def main():
 main()
 
 ######Psudo Code############
+#By Alec
 # response
 # red = 1 right color in right place
 # white = 1 right color in wrong place
